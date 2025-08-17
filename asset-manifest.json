@@ -1,12 +1,12 @@
 {
   "files": {
     "main.css": "/geolocationtest/static/css/main.31d6cfe0.css",
-    "main.js": "/geolocationtest/static/js/main.dfc356dd.js",
+    "main.js": "/geolocationtest/static/js/main.a8b4b4a1.js",
     "index.html": "/geolocationtest/index.html",
-    "main.dfc356dd.js.map": "/geolocationtest/static/js/main.dfc356dd.js.map"
+    "main.a8b4b4a1.js.map": "/geolocationtest/static/js/main.a8b4b4a1.js.map"
   },
   "entrypoints": [
     "static/css/main.31d6cfe0.css",
-    "static/js/main.dfc356dd.js"
+    "static/js/main.a8b4b4a1.js"
   ]
 }

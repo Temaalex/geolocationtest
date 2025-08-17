@@ -27,7 +27,7 @@ function PageOne() {
    },);  
   return (  
     <div>  
-    {location.latitude == 64.56011 && location.longitude == 39.81811 ? (  
+    {location.latitude == 64.56114 && location.longitude == 39.81655 ? (  
       <div>  
         <p>Latitude: {location.latitude}</p>  
         <p>Longitude: {location.longitude}</p>

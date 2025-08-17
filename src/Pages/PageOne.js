@@ -9,7 +9,7 @@ function PageOne() {
   const getLocation = () => {  
   if (navigator.geolocation) {  
     navigator.geolocation.getCurrentPosition((position) => {  
-    setLocation({ latitude: position.coords.latitude.toFixed(5), longitude: position.coords.longitude.toFixed(5)});  
+    setLocation({ latitude: position.coords.latitude.toFixed(3), longitude: position.coords.longitude.toFixed(3)});  
   }, (error) => {  
     console.error("Error getting location:", error);  
   } );  
@@ -27,7 +27,7 @@ function PageOne() {
    },);  
   return (  
     <div>  
-    {location.latitude == 64.56004 && location.longitude == 39.81829 ? (  
+    {location.latitude == 64.560 && location.longitude == 39.818 ? (  
       <div>  
         <p>Latitude: {location.latitude}</p>  
         <p>Longitude: {location.longitude}</p>

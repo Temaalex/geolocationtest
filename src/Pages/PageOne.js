@@ -7,13 +7,13 @@ function PageOne() {
   const [location, setLocation] = useState({ latitude: 0, longitude: 0 }); 
   const geoOptoins = {
     enableHighAccuracy: true,
-    maximumAge: 20000,
-    timeout: 30000,
+    maximumAge: 0,
+    timeout: 3000,
   } 
   useEffect(() => {  
   const getLocation = () => {  
   if (navigator.geolocation) {  
-    navigator.geolocation.getCurrentPosition((position) => {  
+    navigator.geolocation.getCurrentPosition()((position) => {  
     setLocation({ latitude: position.coords.latitude, longitude: position.coords.longitude});  
   }, (error) => {  
     console.error("Error getting location:", error);  

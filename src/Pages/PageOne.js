@@ -4,7 +4,12 @@ import { useState, useEffect } from 'react';
 function PageOne() {  
 
   //let navigate = useNavigate();
-  const [location, setLocation] = useState({ latitude: 0, longitude: 0 });  
+  const [location, setLocation] = useState({ latitude: 0, longitude: 0 }); 
+  const geoOptoins = {
+    enableHighAccuracy: true,
+    maximumAge: 20000,
+    timeout: 30000,
+  } 
   useEffect(() => {  
   const getLocation = () => {  
   if (navigator.geolocation) {  
@@ -12,7 +17,7 @@ function PageOne() {
     setLocation({ latitude: position.coords.latitude, longitude: position.coords.longitude});  
   }, (error) => {  
     console.error("Error getting location:", error);  
-  } );  
+  }, geoOptoins );  
   } else {  
     console.error("Geolocation is not supported by this browser.");  
   }  

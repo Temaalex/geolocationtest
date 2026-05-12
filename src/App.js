@@ -1,13 +1,13 @@
 import { Routes, Route } from 'react-router-dom';
 import PageOne from "./Pages/PageOne";
-import PageTwo from "./Pages/PageTwo";
+import Map from "./Pages/Map";
 
 
 function App() {
   return (
      <Routes>
       <Route path="/one" element={<PageOne/>} />
-      <Route path="/two" element={<PageTwo/>} />
+      <Route path="/map" element={<Map/>} />
      </Routes>
   );
 }

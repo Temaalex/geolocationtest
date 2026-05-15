@@ -122,7 +122,7 @@ const PageOne = () => {
     }, 10000)
     return () => clearInterval(interval);
   },); 
-
+  console.log(true)
   return (
     <div>
         <div>

@@ -22,16 +22,41 @@ const myPoint ={
 }
 
 //Точка конечная
-const pointFinish = {
+const pointFinish1 = {
     marginTop:'250px',
     marginLeft:'250px',
     width: '10px',
     height: '10px',
     backgroundColor: "black",
 }
+const pointFinish2 = {
+    marginTop:'250px',
+    marginLeft:'250px',
+    width: '10px',
+    height: '10px',
+    backgroundColor: "yellow",
+}
+const pointFinish3 = {
+    marginTop:'250px',
+    marginLeft:'250px',
+    width: '10px',
+    height: '10px',
+    backgroundColor: "green",
+}
+const pointFinish4 = {
+    marginTop:'250px',
+    marginLeft:'250px',
+    width: '10px',
+    height: '10px',
+    backgroundColor: "gray",
+}
 
 const PageOne = () => {
   const ref = useRef();
+  const ref0 = useRef();
+  const ref1 = useRef();
+  const ref2 = useRef();
+  const ref3 = useRef();
   const [location, setLocation] = useState({ latitude: 0, longitude: 0 });
   const geoOptoins = {
     enableHighAccuracy: true,
@@ -50,39 +75,38 @@ const PageOne = () => {
         console.error("Geolocation is not supported by this browser.");
       }
     };
-    const formula =()=> {
-      
+      const arrEndPoints = {
+        endAlfOne: [59.387193, 28.613817, ref0],
+        endAlfTwo: [59.386137, 28.611207, ref1],
+        endAlfThree: [59.383675, 28.610819, ref2],
+        endAlfFour: [59.385322, 28.614828, ref3],
+      }
+
+    const formula =(endAlf, endBet, refPoint)=> {
       const myAlf = location.latitude
       const myBet = location.longitude
-      const endAlf = 59.875452
-      const endBet = 30.257329
       const R=6371302
-
       const radian = (90-endAlf)*Math.PI/180
       const L1 = R*Math.sin(radian)*2*Math.PI
       const QstepB = 360/L1
       const QstepA = 360/(2*Math.PI*R)
 
-      const endPointAlf = ((myAlf-endAlf)/QstepA)/100
-      const endPointBet = ((myBet-endBet)/QstepB)/100
+      const multy= 1
+      const endPointAlf = (((myAlf-endAlf)/QstepA)/multy)+250
+      const endPointBet = (((myBet-endBet)/QstepB)/multy)+250
       
       const styleMargintToppointMove = window.getComputedStyle(ref.current).getPropertyValue("margin-top");
       const styleMargintLeftpointMove = window.getComputedStyle(ref.current).getPropertyValue("margin-left");
-      ref.current.style.marginTop= Math.trunc(endPointAlf+250)+'px';
-      ref.current.style.marginLeft = Math.trunc(endPointBet+250)+'px';
 
-      //console.log(endPointAlf)
-      //console.log(endPointBet)
-      //console.log ("1m по бетта ="+QstepB)
-      //console.log ("1m по альфа ="+QstepA)
-
-      //console.log(((myAlf-endAlf)/QstepA)) //метров по альфа до точки
-      //console.log(((myBet-endBet)/QstepB)/100) //метров по бетта до точки
+      refPoint.current.style.marginTop= Math.trunc(endPointAlf)+'px';
+      refPoint.current.style.marginLeft = Math.trunc(endPointBet)+'px';
     }
-    //const timer = setInterval(()=>formula(),1000)
     const interval = setInterval(() => {
-      getLocation() 
-      formula()
+      //getLocation() 
+      formula(arrEndPoints.endAlfOne[0], arrEndPoints.endAlfOne[1], arrEndPoints.endAlfOne[2])
+      formula(arrEndPoints.endAlfTwo[0], arrEndPoints.endAlfTwo[1], arrEndPoints.endAlfTwo[2])
+      formula(arrEndPoints.endAlfThree[0], arrEndPoints.endAlfThree[1], arrEndPoints.endAlfThree[2])
+      formula(arrEndPoints.endAlfFour[0], arrEndPoints.endAlfFour[1], arrEndPoints.endAlfFour[2])
     }, 500)
     return () => clearInterval(interval);
   },); 
@@ -108,7 +132,10 @@ const PageOne = () => {
 
     <div style={container}>
       <div ref={ref} style={myPoint}></div>
-      <div ref={ref} style={pointFinish}></div>
+      <div ref={ref0} style={pointFinish1}></div>
+      <div ref={ref1} style={pointFinish2}></div>
+      <div ref={ref2} style={pointFinish3}></div>
+      <div ref={ref3} style={pointFinish4}></div>
     </div>   
     </div>
   );

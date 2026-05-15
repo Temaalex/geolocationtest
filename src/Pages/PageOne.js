@@ -57,6 +57,7 @@ const PageOne = () => {
   const ref1 = useRef();
   const ref2 = useRef();
   const ref3 = useRef();
+  const [showMessage, setShowMessage] = useState(false);
   const [location, setLocation] = useState({ latitude: 0, longitude: 0 });
   const geoOptoins = {
     enableHighAccuracy: true,
@@ -91,44 +92,46 @@ const PageOne = () => {
       const QstepB = 360/L1
       const QstepA = 360/(2*Math.PI*R)
 
-      const multy= 1
+      const multy= 0.5
       const endPointAlf = (((myAlf-endAlf)/QstepA)/multy)+250
       const endPointBet = (((myBet-endBet)/QstepB)/multy)+250
       
-      const styleMargintToppointMove = window.getComputedStyle(ref.current).getPropertyValue("margin-top");
-      const styleMargintLeftpointMove = window.getComputedStyle(ref.current).getPropertyValue("margin-left");
+      //const styleMargintToppointMove = window.getComputedStyle(ref.current).getPropertyValue("margin-top");
+      //const styleMargintLeftpointMove = window.getComputedStyle(ref.current).getPropertyValue("margin-left");
 
       refPoint.current.style.marginTop= Math.trunc(endPointAlf)+'px';
-      refPoint.current.style.marginLeft = Math.trunc(endPointBet)+'px';
+      refPoint.current.style.marginLeft = Math.trunc(endPointBet)+'px'; 
+
+      if(
+        250 >= Math.trunc(endPointAlf)-10  &&
+        250 <= Math.trunc(endPointAlf)+10  && 
+        250 >= Math.trunc(endPointBet)-10 && 
+        250 <= Math.trunc(endPointBet)+10  
+      ) {
+        setShowMessage("На месте")
+      } 
+
     }
-    const interval = setInterval(() => {
+    //const interval = setInterval(() => {
       getLocation() 
       formula(arrEndPoints.endAlfOne[0], arrEndPoints.endAlfOne[1], arrEndPoints.endAlfOne[2])
       formula(arrEndPoints.endAlfTwo[0], arrEndPoints.endAlfTwo[1], arrEndPoints.endAlfTwo[2])
       formula(arrEndPoints.endAlfThree[0], arrEndPoints.endAlfThree[1], arrEndPoints.endAlfThree[2])
       formula(arrEndPoints.endAlfFour[0], arrEndPoints.endAlfFour[1], arrEndPoints.endAlfFour[2])
-    }, 500)
-    return () => clearInterval(interval);
+    //}, 5000)
+    //return () => clearInterval(interval);
   },); 
 
   return (
     <div>
-      {location.latitude == 64.5608 && location.longitude == 39.8139 ? (
         <div>
           <p>Latitude: {location.latitude}</p>
           <p>Longitude: {location.longitude}</p>
-          <p>Мы на месте</p>
+          <p>{showMessage}</p>
           
           <button onClick={() => setLocation(location.latitude, location.longitude)}>Нажми</button>
         </div>
-      ) : (
-        <div>
-          <p>Latitude: {location.latitude}</p>
-          <p>Longitude: {location.longitude}</p>
-          <p>Мы не на месте</p>
-          <button onClick={() => setLocation(location.latitude, location.longitude)}>Нажми</button>
-        </div>
-      )}
+
 
     <div style={container}>
       <div ref={ref} style={myPoint}></div>

@@ -102,7 +102,7 @@ const PageOne = () => {
       refPoint.current.style.marginLeft = Math.trunc(endPointBet)+'px';
     }
     const interval = setInterval(() => {
-      //getLocation() 
+      getLocation() 
       formula(arrEndPoints.endAlfOne[0], arrEndPoints.endAlfOne[1], arrEndPoints.endAlfOne[2])
       formula(arrEndPoints.endAlfTwo[0], arrEndPoints.endAlfTwo[1], arrEndPoints.endAlfTwo[2])
       formula(arrEndPoints.endAlfThree[0], arrEndPoints.endAlfThree[1], arrEndPoints.endAlfThree[2])

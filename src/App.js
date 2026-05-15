@@ -1,13 +1,13 @@
 import { Routes, Route } from 'react-router-dom';
 import PageOne from "./Pages/PageOne";
-import Map from "./Pages/Map";
+import Compass from "./Pages/compass";
 
 
 function App() {
   return (
      <Routes>
       <Route path="/one" element={<PageOne/>} />
-      <Route path="/map" element={<Map/>} />
+      <Route path="/compass" element={<Compass/>} />
      </Routes>
   );
 }

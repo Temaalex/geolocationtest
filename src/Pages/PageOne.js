@@ -1,5 +1,6 @@
 import { useRef, useState, useEffect } from 'react';
 import Map from "./Map";
+import Compass from './compass';
 
 //Карта
 const container = {
@@ -60,7 +61,7 @@ const PageOne = () => {
   const [showMessage, setShowMessage] = useState(false);
   const [location, setLocation] = useState({ latitude: 0, longitude: 0 });
   const geoOptoins = {
-    enableHighAccuracy: true,
+    enableHighAccuracy: false,//true точность выше
     maximumAge: 0,
     timeout: 1000,
   }
@@ -109,17 +110,17 @@ const PageOne = () => {
         250 <= Math.trunc(endPointBet)+10  
       ) {
         setShowMessage("На месте")
+        
       } 
-
     }
-    //const interval = setInterval(() => {
+    const interval = setInterval(() => {
       getLocation() 
       formula(arrEndPoints.endAlfOne[0], arrEndPoints.endAlfOne[1], arrEndPoints.endAlfOne[2])
       formula(arrEndPoints.endAlfTwo[0], arrEndPoints.endAlfTwo[1], arrEndPoints.endAlfTwo[2])
       formula(arrEndPoints.endAlfThree[0], arrEndPoints.endAlfThree[1], arrEndPoints.endAlfThree[2])
       formula(arrEndPoints.endAlfFour[0], arrEndPoints.endAlfFour[1], arrEndPoints.endAlfFour[2])
-    //}, 5000)
-    //return () => clearInterval(interval);
+    }, 10000)
+    return () => clearInterval(interval);
   },); 
 
   return (
@@ -134,7 +135,9 @@ const PageOne = () => {
 
 
     <div style={container}>
-      <div ref={ref} style={myPoint}></div>
+      <div ref={ref} style={myPoint}>
+        <Compass/>
+      </div>
       <div ref={ref0} style={pointFinish1}></div>
       <div ref={ref1} style={pointFinish2}></div>
       <div ref={ref2} style={pointFinish3}></div>

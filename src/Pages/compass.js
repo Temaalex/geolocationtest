@@ -1,41 +1,108 @@
 import React, { useState, useEffect } from 'react';
 
 const Compass = () => {
-  const [motionData, setMotionData] = useState({
-    alpha: null, // вращение вокруг оси Z
+  const [orientation, setOrientation] = useState({
+    alpha: null, // вращение вокруг оси Z (азимут)
     beta: null,  // наклон вперёд/назад (ось X)
     gamma: null   // наклон влево/вправо (ось Y)
   });
   const [error, setError] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    const handleDeviceMotion = (event) => {
-      setMotionData({
-        alpha: event.rotationRate.alpha,
-        beta: event.rotationRate.beta,
-        gamma: event.rotationRate.gamma
+    const handleOrientation = (event) => {
+      setOrientation({
+        alpha: event.alpha,
+        beta: event.beta,
+        gamma: event.gamma
       });
     };
 
-    if (window.DeviceMotionEvent) {
-      window.addEventListener('devicemotion', handleDeviceMotion);
+    // Проверка поддержки DeviceOrientationEvent
+    if (window.DeviceOrientationEvent) {
+      // Запрос разрешения на iOS 13+
+      if (typeof DeviceOrientationEvent.requestPermission === 'function') {
+        DeviceOrientationEvent.requestPermission()
+          .then((permissionState) => {
+            if (permissionState === 'granted') {
+              window.addEventListener('deviceorientation', handleOrientation);
+              setIsLoading(false);
+            } else {
+              setError('Разрешение на доступ к датчикам отклонено');
+            }
+          })
+          .catch(() => setError('Ошибка запроса разрешения'));
+      } else {
+        // Для устройств без запроса разрешений
+        window.addEventListener('deviceorientation', handleOrientation);
+        setIsLoading(false);
+      }
     } else {
-      setError('DeviceMotionEvent не поддерживается');
+      setError('DeviceOrientationEvent не поддерживается вашим устройством');
+      setIsLoading(false);
     }
 
     return () => {
-      window.removeEventListener('devicemotion', handleDeviceMotion);
+      window.removeEventListener('deviceorientation', handleOrientation);
     };
   }, []);
 
+  // Визуализация данных
+  if (isLoading) return <div>Загрузка датчиков...</div>;
   if (error) return <div style={{ color: 'red' }}>{error}</div>;
 
   return (
-    <div>
-      <h2>Компас (DeviceMotion)</h2>
-      <p>Alpha (Z): {motionData.alpha?.toFixed(2) || '—'} рад/с</p>
-      <p>Beta (X): {motionData.beta?.toFixed(2) || '—'} рад/с</p>
-      <p>Gamma (Y): {motionData.gamma?.toFixed(2) || '—'} рад/с</p>
+    <div style={{ padding: '20px', fontFamily: 'Arial' }}>
+      <h2>Компас (DeviceOrientation)</h2>
+      
+      <div style={{ margin: '10px 0' }}>
+        <p>
+          <strong>Азимут (Alpha/Z):</strong>{' '}
+          {orientation.alpha !== null
+            ? `${orientation.alpha.toFixed(1)}°`
+            : '—'}
+        </p>
+        <p>
+          <strong>Наклон вперёд/назад (Beta/X):</strong>{' '}
+          {orientation.beta !== null
+            ? `${orientation.beta.toFixed(1)}°`
+            : '—'}
+        </p>
+        <p>
+          <strong>Наклон влево/вправо (Gamma/Y):</strong>{' '}
+          {orientation.gamma !== null
+            ? `${orientation.gamma.toFixed(1)}°`
+            : '—'}
+        </p>
+      </div>
+
+      {/* Визуальный индикатор азимута */}
+      <div
+        style={{
+          width: '200px',
+          height: '200px',
+          border: '2px solid #333',
+          borderRadius: '50%',
+          position: 'relative',
+          margin: '20px auto'
+        }}
+      >
+        <div
+          style={{
+            position: 'absolute',
+            top: '50%',
+            left: '50%',
+            transform: `translate(-50%, -50%) rotate(${orientation.alpha || 0}deg)`,
+            width: '100%',
+            height: '4px',
+            backgroundColor: 'red',
+            transformOrigin: 'center'
+          }}
+        />
+        <div style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)' }}>
+          N
+        </div>
+      </div>
     </div>
   );
 };

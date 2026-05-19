@@ -61,7 +61,7 @@ const PageOne = () => {
   const [showMessage, setShowMessage] = useState(false);
   const [location, setLocation] = useState({ latitude: 0, longitude: 0 });
   const geoOptoins = {
-    enableHighAccuracy: false,//true точность выше
+    enableHighAccuracy: true,//true точность выше
     maximumAge: 0,
     timeout: 1000,
   }
@@ -93,7 +93,7 @@ const PageOne = () => {
       const QstepB = 360/L1
       const QstepA = 360/(2*Math.PI*R)
 
-      const multy= 0.5
+      const multy= 5
       const endPointAlf = (((myAlf-endAlf)/QstepA)/multy)+250
       const endPointBet = (((myBet-endBet)/QstepB)/multy)+250
       
@@ -110,7 +110,6 @@ const PageOne = () => {
         250 <= Math.trunc(endPointBet)+10  
       ) {
         setShowMessage("На месте")
-        
       } 
     }
     const interval = setInterval(() => {
@@ -119,7 +118,7 @@ const PageOne = () => {
       formula(arrEndPoints.endAlfTwo[0], arrEndPoints.endAlfTwo[1], arrEndPoints.endAlfTwo[2])
       formula(arrEndPoints.endAlfThree[0], arrEndPoints.endAlfThree[1], arrEndPoints.endAlfThree[2])
       formula(arrEndPoints.endAlfFour[0], arrEndPoints.endAlfFour[1], arrEndPoints.endAlfFour[2])
-    }, 10000)
+    }, 1000)
     return () => clearInterval(interval);
   },); 
   console.log(true)
@@ -135,9 +134,7 @@ const PageOne = () => {
 
 
     <div style={container}>
-      <div ref={ref} style={myPoint}>
-        <Compass/>
-      </div>
+      <div ref={ref} style={myPoint}></div>
       <div ref={ref0} style={pointFinish1}></div>
       <div ref={ref1} style={pointFinish2}></div>
       <div ref={ref2} style={pointFinish3}></div>

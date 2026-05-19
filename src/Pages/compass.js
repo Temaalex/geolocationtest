@@ -54,10 +54,10 @@ const Compass = () => {
   if (error) return <div style={{ color: 'red' }}>{error}</div>;
 
   return (
-    <div style={{ padding: '20px', fontFamily: 'Arial' }}>
-      <h2>Компас (DeviceOrientation)</h2>
+    <div>
+      {/* <h2>Компас (DeviceOrientation)</h2> */}
       
-      <div style={{ margin: '10px 0' }}>
+      {/* <div style={{ margin: '10px 0' }}>
         <p>
           <strong>Азимут (Alpha/Z):</strong>{' '}
           {orientation.alpha !== null
@@ -76,25 +76,31 @@ const Compass = () => {
             ? `${orientation.gamma.toFixed()}°`
             : '—'}
         </p>
-      </div>
+      </div> */}
 
       {/* Визуальный индикатор азимута */}
       <div
         style={{
-          width: '100px',
-          height: '100px',
-          border: '2px solid #333',
-          borderRadius: '50%',
-          position: 'relative',
-          margin: '20px auto'
+          marginTop:'250px',
+          marginLeft:'250px',
+          //width: '10px',
+          //height: '10px',
+          //width: '100px',
+          //height: '100px',
+          //border: '2px solid #333',
+          //borderRadius: '50%',
+          //position: 'relative',
+          //margin: '20px auto'
         }}
       >
         <img style={{
+          
+          //backgroundColor: "red",
             position: 'absolute',
-            top: '50%',
-            left: '50%',
+            //top: '50%',
+            //left: '50%',
             transform: `translate(-50%, -50%) rotate(${orientation.alpha || 0}deg)`,
-            width: '40%',
+            width: '60px',
             //height: '4px',
             //backgroundColor: 'red',
             transformOrigin: 'center'

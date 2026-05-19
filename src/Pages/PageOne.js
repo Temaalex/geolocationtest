@@ -11,7 +11,7 @@ const container = {
     margin:'10px',
     width: '500px',
     height: '500px',
-    backgroundColor: "blue",
+    backgroundColor: "black",
     border: '1px solid black',  
 }
 const myPoint ={
@@ -28,7 +28,7 @@ const pointFinish1 = {
     marginLeft:'250px',
     width: '10px',
     height: '10px',
-    backgroundColor: "black",
+    backgroundColor: "blue",
 }
 const pointFinish2 = {
     marginTop:'250px',
@@ -93,7 +93,7 @@ const PageOne = () => {
       const QstepB = 360/L1
       const QstepA = 360/(2*Math.PI*R)
 
-      const multy= 5
+      const multy= 1
       const endPointAlf = (((myAlf-endAlf)/QstepA)/multy)+250
       const endPointBet = (((myBet-endBet)/QstepB)/multy)+250
       
@@ -134,7 +134,8 @@ const PageOne = () => {
 
 
     <div style={container}>
-      <div ref={ref} style={myPoint}></div>
+      <Compass/>
+      {/* <div ref={ref} style={myPoint}></div> */}
       <div ref={ref0} style={pointFinish1}></div>
       <div ref={ref1} style={pointFinish2}></div>
       <div ref={ref2} style={pointFinish3}></div>

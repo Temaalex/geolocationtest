@@ -1,72 +1,56 @@
 import React, { useState, useEffect } from 'react';
 
 const Compass = () => {
-    
   const [rotationData, setRotationData] = useState({
     beta: null,
     gamma: null,
     alpha: null
   });
+  const [error, setError] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
+    setIsLoading(true);
+    setError(null);
+
     const handleDeviceMotion = (event) => {
       const rotationRate = event.rotationRate;
 
-      if (rotationRate) {
+      if (rotationRate && (rotationRate.beta !== null || rotationRate.gamma !== null || rotationRate.alpha !== null)) {
         setRotationData({
           beta: rotationRate.beta,
           gamma: rotationRate.gamma,
           alpha: rotationRate.alpha
         });
+        setIsLoading(false);
       }
     };
 
-    if (typeof window !== 'undefined' && window.DeviceMotionEvent) {
-      window.addEventListener('devicemotion', handleDeviceMotion, true);
-    } else {
-      console.log('DeviceMotionEvent не поддерживается');
+    if (typeof window === 'undefined') {
+      setError('Window object недоступен');
+      return;
     }
 
-    // Функция очистки — удаляет обработчик при уничтожении компонента
-    // return () => {
-    //   window.removeEventListener('devicemotion', handleDeviceMotion, true);
-    // };
-  }, []); // Пустой массив зависимостей — эффект выполняется один раз
-useEffect(() => {
-  console.log('useEffect запущен');
-
-  const handleDeviceMotion = (event) => {
-    console.log('Событие devicemotion получено');
-    const rotationRate = event.rotationRate;
-    console.log('rotationRate:', rotationRate);
-
-    if (rotationRate) {
-      console.log('beta:', rotationRate.beta);
-      console.log('gamma:', rotationRate.gamma);
-      console.log('alpha:', rotationRate.alpha);
-
-      setRotationData({
-        beta: rotationRate.beta,
-        gamma: rotationRate.gamma,
-        alpha: rotationRate.alpha
-      });
-    } else {
-      console.log('rotationRate отсутствует');
+    if (!window.DeviceMotionEvent) {
+      setError('DeviceMotionEvent не поддерживается этим браузером/устройством');
+      setIsLoading(false);
+      return;
     }
-  };
 
-  if (typeof window !== 'undefined' && window.DeviceMotionEvent) {
-    console.log('DeviceMotionEvent поддерживается');
     window.addEventListener('devicemotion', handleDeviceMotion, true);
-  } else {
-    console.log('DeviceMotionEvent не поддерживается');
+
+    return () => {
+      window.removeEventListener('devicemotion', handleDeviceMotion, true);
+    };
+  }, []);
+
+  if (isLoading) {
+    return <div>Ожидание данных с датчиков...</div>;
   }
 
-  return () => {
-    window.removeEventListener('devicemotion', handleDeviceMotion, true);
-    console.log('Обработчик удалён');
-  };
-}, []);
+  if (error) {
+    return <div>Ошибка: {error}</div>;
+  }
 
   return (
     <div>

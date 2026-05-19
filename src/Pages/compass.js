@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import Board from './img/Bord.jpg';
 
 const Compass = () => {
   const [orientation, setOrientation] = useState({
@@ -19,28 +20,29 @@ const Compass = () => {
     };
 
     // Проверка поддержки DeviceOrientationEvent
-    if (window.DeviceOrientationEvent) {
-      // Запрос разрешения на iOS 13+
-      if (typeof DeviceOrientationEvent.requestPermission === 'function') {
-        DeviceOrientationEvent.requestPermission()
-          .then((permissionState) => {
-            if (permissionState === 'granted') {
-              window.addEventListener('deviceorientation', handleOrientation);
-              setIsLoading(false);
-            } else {
-              setError('Разрешение на доступ к датчикам отклонено');
-            }
-          })
-          .catch(() => setError('Ошибка запроса разрешения'));
-      } else {
+    // if (window.DeviceOrientationEvent) {
+    //   // Запрос разрешения на iOS 13+
+    //   if (typeof DeviceOrientationEvent.requestPermission === 'function') {
+    //     DeviceOrientationEvent.requestPermission()
+    //       .then((permissionState) => {
+    //         if (permissionState === 'granted') {
+    //           window.addEventListener('deviceorientation', handleOrientation);
+    //           setIsLoading(false);
+    //         } else {
+    //           setError('Разрешение на доступ к датчикам отклонено');
+    //         }
+    //       })
+    //       .catch(() => setError('Ошибка запроса разрешения'));
+    //   } else {
         // Для устройств без запроса разрешений
         window.addEventListener('deviceorientation', handleOrientation);
         setIsLoading(false);
-      }
-    } else {
-      setError('DeviceOrientationEvent не поддерживается вашим устройством');
-      setIsLoading(false);
-    }
+
+      // }
+    // } else {
+    //   setError('DeviceOrientationEvent не поддерживается вашим устройством');
+    //   setIsLoading(false);
+    // }
 
     return () => {
       window.removeEventListener('deviceorientation', handleOrientation);
@@ -59,19 +61,19 @@ const Compass = () => {
         <p>
           <strong>Азимут (Alpha/Z):</strong>{' '}
           {orientation.alpha !== null
-            ? `${orientation.alpha.toFixed(1)}°`
+            ? `${orientation.alpha.toFixed()}°`
             : '—'}
         </p>
         <p>
           <strong>Наклон вперёд/назад (Beta/X):</strong>{' '}
           {orientation.beta !== null
-            ? `${orientation.beta.toFixed(1)}°`
+            ? `${orientation.beta.toFixed()}°`
             : '—'}
         </p>
         <p>
           <strong>Наклон влево/вправо (Gamma/Y):</strong>{' '}
           {orientation.gamma !== null
-            ? `${orientation.gamma.toFixed(1)}°`
+            ? `${orientation.gamma.toFixed()}°`
             : '—'}
         </p>
       </div>
@@ -79,29 +81,39 @@ const Compass = () => {
       {/* Визуальный индикатор азимута */}
       <div
         style={{
-          width: '200px',
-          height: '200px',
+          width: '100px',
+          height: '100px',
           border: '2px solid #333',
           borderRadius: '50%',
           position: 'relative',
           margin: '20px auto'
         }}
       >
-        <div
+        <img style={{
+            position: 'absolute',
+            top: '50%',
+            left: '50%',
+            transform: `translate(-50%, -50%) rotate(${orientation.alpha || 0}deg)`,
+            width: '40%',
+            //height: '4px',
+            //backgroundColor: 'red',
+            transformOrigin: 'center'
+          }} src={Board} alt="Persone"/>
+        {/* <div
           style={{
             position: 'absolute',
             top: '50%',
             left: '50%',
             transform: `translate(-50%, -50%) rotate(${orientation.alpha || 0}deg)`,
-            width: '100%',
+            width: '50%',
             height: '4px',
             backgroundColor: 'red',
             transformOrigin: 'center'
           }}
-        />
-        <div style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)' }}>
+        /> */}
+        {/* <div style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)' }}>
           N
-        </div>
+        </div> */}
       </div>
     </div>
   );

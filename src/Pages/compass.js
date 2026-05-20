@@ -79,26 +79,13 @@ const Compass = () => {
       </div> */}
 
       {/* Визуальный индикатор азимута */}
-      <div
-        style={{
-          marginTop:'250px',
-          marginLeft:'250px',
-          //width: '10px',
-          //height: '10px',
-          //width: '100px',
-          //height: '100px',
-          //border: '2px solid #333',
-          //borderRadius: '50%',
-          //position: 'relative',
-          //margin: '20px auto'
-        }}
-      >
+
         <img style={{
           
           //backgroundColor: "red",
             position: 'absolute',
-            //top: '50%',
-            //left: '50%',
+            top: '50%',
+            left: '50%',
             transform: `translate(-50%, -50%) rotate(${orientation.alpha || 0}deg)`,
             width: '60px',
             //height: '4px',
@@ -120,7 +107,7 @@ const Compass = () => {
         {/* <div style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)' }}>
           N
         </div> */}
-      </div>
+    
     </div>
   );
 };

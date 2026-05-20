@@ -1,35 +1,36 @@
 import { useRef, useState, useEffect } from 'react';
-import Map from "./Map";
 import Compass from './compass';
 
 //Карта
 
 const container = {
-    display: 'grid',
-    justifyContent: 'center',
-    alignContent: 'center',
-    placeContent: 'center',
-    gridTemplateColumns: 'repeat(500, 1px)',
-    gridTemplateRows: 'repeat(500, 1px)',
-    margin:'10px',
-    maxWidth: '500px',
-    maxHeight: '500px',
-    backgroundColor: "black",
-    border: '1px solid black',  
-}
-const myPoint = {
-    marginTop:'250px',
-    marginLeft:'250px',
-    width: '10px',
-    height: '10px',
-    backgroundColor: "red",
-    borderRadius: '50%'
+  //position: 'relative',
+   //display: 'flex',
+    //justifyContent: 'center',
+    //alignContent: 'center',
+    //placeContent: 'center',
+    overflow: 'hidden',
+    //gridTemplateColumns: 'repeat(100, 1px)',
+    //gridTemplateRows: 'repeat(100, 1px)',
+    //gridAutoColumns: '1px',
+    //gridAutoRows: '1px',
+    //margin:'10px',
+    //minWidth: '500px',
+    //minHeight: '500px',
+    //backgroundColor: "black",
+    position: 'absolute',
+    width: '100vw',
+    height: '100vh',
+    top: '0',
+    left: '0',
+    //border: '1px solid red',  
 }
 
 //Точка конечная
 const pointFinish1 = {
-    marginTop:'250px',
-    marginLeft:'250px',
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
     width: '50px',
     height: '50px',
     backgroundColor: "blue",
@@ -37,8 +38,9 @@ const pointFinish1 = {
     transform: 'translate(-50%, -50%)'
 }
 const pointFinish2 = {
-    marginTop:'250px',
-    marginLeft:'250px',
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
     width: '50px',
     height: '50px',
     backgroundColor: "yellow",
@@ -46,8 +48,9 @@ const pointFinish2 = {
     transform: 'translate(-50%, -50%)'
 }
 const pointFinish3 = {
-    marginTop:'250px',
-    marginLeft:'250px',
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
     width: '50px',
     height: '50px',
     backgroundColor: "green",
@@ -55,8 +58,9 @@ const pointFinish3 = {
     transform: 'translate(-50%, -50%)'
 }
 const pointFinish4 = {
-    marginTop:'250px',
-    marginLeft:'250px',
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
     width: '50px',
     height: '50px',
     backgroundColor: "gray",
@@ -104,10 +108,9 @@ const PageOne = () => {
       const L1 = R*Math.sin(radian)*2*Math.PI
       const QstepB = 360/L1
       const QstepA = 360/(2*Math.PI*R)
-
       const multy= 1
-      const endPointAlf = (((myAlf-endAlf)/QstepA)/multy)+250
-      const endPointBet = (((myBet-endBet)/QstepB)/multy)+250
+      const endPointAlf = (((myAlf-endAlf)/QstepA)/multy)
+      const endPointBet = (((myBet-endBet)/QstepB)/multy)
       
       //const styleMargintToppointMove = window.getComputedStyle(ref.current).getPropertyValue("margin-top");
       //const styleMargintLeftpointMove = window.getComputedStyle(ref.current).getPropertyValue("margin-left");
@@ -146,12 +149,13 @@ const PageOne = () => {
 
 
     <div style={container}>
+    {/* <div> */}
       <Compass/>
-      {/* <div ref={ref} style={myPoint}></div> */}
-      <div ref={ref0} style={pointFinish1}></div>
-      <div ref={ref1} style={pointFinish2}></div>
-      <div ref={ref2} style={pointFinish3}></div>
-      <div ref={ref3} style={pointFinish4}></div>
+      <div ref={ref0} style={pointFinish1}><div className='circle'></div></div>
+      <div ref={ref1} style={pointFinish2}><div className='circle'></div></div>
+      <div ref={ref2} style={pointFinish3}><div className='circle'></div></div>
+      <div ref={ref3} style={pointFinish4}><div className='circle'></div></div>
+      
     </div>   
     </div>
   );

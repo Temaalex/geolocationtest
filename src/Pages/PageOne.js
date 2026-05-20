@@ -3,6 +3,7 @@ import Map from "./Map";
 import Compass from './compass';
 
 //Карта
+
 const container = {
     display: 'grid',
     placeContent: 'center',
@@ -14,42 +15,47 @@ const container = {
     backgroundColor: "black",
     border: '1px solid black',  
 }
-const myPoint ={
+const myPoint = {
     marginTop:'250px',
     marginLeft:'250px',
     width: '10px',
     height: '10px',
     backgroundColor: "red",
+    borderRadius: '50%'
 }
 
 //Точка конечная
 const pointFinish1 = {
     marginTop:'250px',
     marginLeft:'250px',
-    width: '10px',
-    height: '10px',
+    width: '50px',
+    height: '50px',
     backgroundColor: "blue",
+    borderRadius: '50%'
 }
 const pointFinish2 = {
     marginTop:'250px',
     marginLeft:'250px',
-    width: '10px',
-    height: '10px',
+    width: '50px',
+    height: '50px',
     backgroundColor: "yellow",
+    borderRadius: '50%'
 }
 const pointFinish3 = {
     marginTop:'250px',
     marginLeft:'250px',
-    width: '10px',
-    height: '10px',
+    width: '50px',
+    height: '50px',
     backgroundColor: "green",
+    borderRadius: '50%'
 }
 const pointFinish4 = {
     marginTop:'250px',
     marginLeft:'250px',
-    width: '10px',
-    height: '10px',
+    width: '50px',
+    height: '50px',
     backgroundColor: "gray",
+    borderRadius: '50%'
 }
 
 const PageOne = () => {
@@ -63,7 +69,7 @@ const PageOne = () => {
   const geoOptoins = {
     enableHighAccuracy: true,//true точность выше
     maximumAge: 0,
-    timeout: 1000,
+    timeout: 500,
   }
   useEffect(() => {
     const getLocation = () => {
@@ -118,16 +124,16 @@ const PageOne = () => {
       formula(arrEndPoints.endAlfTwo[0], arrEndPoints.endAlfTwo[1], arrEndPoints.endAlfTwo[2])
       formula(arrEndPoints.endAlfThree[0], arrEndPoints.endAlfThree[1], arrEndPoints.endAlfThree[2])
       formula(arrEndPoints.endAlfFour[0], arrEndPoints.endAlfFour[1], arrEndPoints.endAlfFour[2])
-    }, 1000)
+    }, 500)
     return () => clearInterval(interval);
   },); 
-  console.log(true)
+  //console.log(true)
   return (
     <div>
         <div>
-          <p>Latitude: {location.latitude}</p>
-          <p>Longitude: {location.longitude}</p>
-          <p>{showMessage}</p>
+          <p style={{color: "green"}}>Latitude: {location.latitude}</p>
+          <p style={{color: "green"}}>Longitude: {location.longitude}</p>
+          <p style={{color: "green"}}>{showMessage}</p>
           
           <button onClick={() => setLocation(location.latitude, location.longitude)}>Нажми</button>
         </div>

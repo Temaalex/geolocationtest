@@ -4,8 +4,8 @@ import Board from './img/Bord.jpg';
 const Compass = () => {
   const [orientation, setOrientation] = useState({
     alpha: null, // вращение вокруг оси Z (азимут)
-    beta: null,  // наклон вперёд/назад (ось X)
-    gamma: null   // наклон влево/вправо (ось Y)
+    //beta: null,  // наклон вперёд/назад (ось X)
+    //gamma: null   // наклон влево/вправо (ось Y)
   });
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
@@ -14,8 +14,8 @@ const Compass = () => {
     const handleOrientation = (event) => {
       setOrientation({
         alpha: event.alpha,
-        beta: event.beta,
-        gamma: event.gamma
+        //beta: 10,//event.beta,
+        //gamma: 20//event.gamma
       });
     };
 

@@ -6,12 +6,14 @@ import Compass from './compass';
 
 const container = {
     display: 'grid',
+    justifyContent: 'center',
+    alignContent: 'center',
     placeContent: 'center',
     gridTemplateColumns: 'repeat(500, 1px)',
     gridTemplateRows: 'repeat(500, 1px)',
     margin:'10px',
-    width: '500px',
-    height: '500px',
+    maxWidth: '500px',
+    maxHeight: '500px',
     backgroundColor: "black",
     border: '1px solid black',  
 }
@@ -31,7 +33,8 @@ const pointFinish1 = {
     width: '50px',
     height: '50px',
     backgroundColor: "blue",
-    borderRadius: '50%'
+    borderRadius: '50%',
+    transform: 'translate(-50%, -50%)'
 }
 const pointFinish2 = {
     marginTop:'250px',
@@ -39,7 +42,8 @@ const pointFinish2 = {
     width: '50px',
     height: '50px',
     backgroundColor: "yellow",
-    borderRadius: '50%'
+    borderRadius: '50%',
+    transform: 'translate(-50%, -50%)'
 }
 const pointFinish3 = {
     marginTop:'250px',
@@ -47,7 +51,8 @@ const pointFinish3 = {
     width: '50px',
     height: '50px',
     backgroundColor: "green",
-    borderRadius: '50%'
+    borderRadius: '50%',
+    transform: 'translate(-50%, -50%)'
 }
 const pointFinish4 = {
     marginTop:'250px',
@@ -55,7 +60,8 @@ const pointFinish4 = {
     width: '50px',
     height: '50px',
     backgroundColor: "gray",
-    borderRadius: '50%'
+    borderRadius: '50%',
+    transform: 'translate(-50%, -50%)'
 }
 
 const PageOne = () => {
@@ -84,10 +90,10 @@ const PageOne = () => {
       }
     };
       const arrEndPoints = {
-        endAlfOne: [59.387193, 28.613817, ref0],
-        endAlfTwo: [59.386137, 28.611207, ref1],
-        endAlfThree: [59.383675, 28.610819, ref2],
-        endAlfFour: [59.385322, 28.614828, ref3],
+        endAlfOne: [59.377577, 28.602025, ref0],
+        endAlfTwo: [59.376502, 28.614975, ref1],
+        endAlfThree: [59.378849, 28.616992, ref2],
+        endAlfFour: [59.383683, 28.614135, ref3],
       }
 
     const formula =(endAlf, endBet, refPoint)=> {

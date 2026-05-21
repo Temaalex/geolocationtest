@@ -1,0 +1,2 @@
+body{background-color:#000;margin:0}.circle{animation:grow 3s infinite;border:1px solid #7d807a80;border-radius:50%;box-shadow:0 0 3px #7d807a80;height:50px;position:absolute;transition:width 1s,height 1s;width:50px}@keyframes grow{0%{transform:scale(1)}to{transform:scale(100)}}
+/*# sourceMappingURL=main.84a79ff5.css.map*/

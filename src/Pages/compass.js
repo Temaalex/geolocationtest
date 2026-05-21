@@ -18,8 +18,8 @@ const Compass = () => {
         beta: 0, //event.beta,
         gamma: 0, //event.gamma
       });
-      if(orientation.alpha == 360){
-        orientation.alpha = 0
+      if(orientation.alpha == 359){
+        orientation.alpha = 1
       }
     };
 

@@ -119,10 +119,10 @@ const PageOne = () => {
       refPoint.current.style.marginLeft = Math.trunc(endPointBet)+'px'; 
 
       if(
-        250 >= Math.trunc(endPointAlf)-10  &&
-        250 <= Math.trunc(endPointAlf)+10  && 
-        250 >= Math.trunc(endPointBet)-10 && 
-        250 <= Math.trunc(endPointBet)+10  
+        0 >= Math.trunc(endPointAlf)-20  &&
+        0 <= Math.trunc(endPointAlf)+20  && 
+        0 >= Math.trunc(endPointBet)-20 && 
+        0 <= Math.trunc(endPointBet)+20  
       ) {
         setShowMessage("На месте")
       } 
@@ -136,7 +136,6 @@ const PageOne = () => {
     }, 500)
     return () => clearInterval(interval);
   },); 
-  //console.log(true)
   return (
     <div>
         <div>
@@ -149,12 +148,19 @@ const PageOne = () => {
 
 
     <div style={container}>
-    {/* <div> */}
       <Compass/>
-      <div ref={ref0} style={pointFinish1}><div className='circle'></div></div>
-      <div ref={ref1} style={pointFinish2}><div className='circle'></div></div>
-      <div ref={ref2} style={pointFinish3}><div className='circle'></div></div>
-      <div ref={ref3} style={pointFinish4}><div className='circle'></div></div>
+      <div ref={ref0} style={pointFinish1}>
+        <div style={{border: '1px solid rgba(56, 11, 236, 0.3)'}} className='circle'/>
+      </div>
+      <div ref={ref1} style={pointFinish2}>
+        <div style={{border: '1px solid rgba(216, 236, 35, 0.3)'}} className='circle'/>
+        </div>
+      <div ref={ref2} style={pointFinish3}>
+        <div style={{border: '1px solid rgba(52, 220, 14, 0.3)'}} className='circle'/>
+        </div>
+      <div ref={ref3} style={pointFinish4}>
+        <div style={{border: '1px solid rgba(184, 179, 205, 0.3)'}} className='circle'/>
+      </div>
       
     </div>   
     </div>

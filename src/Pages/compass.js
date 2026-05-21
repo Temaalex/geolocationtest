@@ -57,7 +57,7 @@ const Compass = () => {
     <div>
       {/* <h2>Компас (DeviceOrientation)</h2> */}
       
-      {/* <div style={{ margin: '10px 0' }}>
+      <div style={{ margin: '10px 0', color: "green", marginTop: "100px"}}>
         <p>
           <strong>Азимут (Alpha/Z):</strong>{' '}
           {orientation.alpha !== null
@@ -76,13 +76,14 @@ const Compass = () => {
             ? `${orientation.gamma.toFixed()}°`
             : '—'}
         </p>
-      </div> */}
+      </div>
 
       {/* Визуальный индикатор азимута */}
 
         <img style={{
           
           //backgroundColor: "red",
+            zIndex: '9',
             position: 'absolute',
             top: '50%',
             left: '50%',

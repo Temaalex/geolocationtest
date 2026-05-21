@@ -13,11 +13,25 @@ const Compass = () => {
   useEffect(() => {
     const handleOrientation = (event) => {
       setOrientation({
-        alpha: 360,//event.alpha,
+        alpha: event.alpha,
         beta: 0, //event.beta,
         gamma: 0, //event.gamma
       });
+      if(orientation.alpha === 360){
+          orientation.alpha = 0
+          console.log(orientation.alpha)
+          setOrientation({
+            alpha: event.alpha,
+            beta: 0,
+            gamma: 0,
+          })
+      }
     };
+    
+    // if(orientation.alpha === 360){
+    //     setOrientation({alpha: 0})
+    //     console.log (orientation.alpha)
+    // }
 
     // Проверка поддержки DeviceOrientationEvent
     // if (window.DeviceOrientationEvent) {
@@ -53,10 +67,6 @@ const Compass = () => {
   if (isLoading) return <div>Загрузка датчиков...</div>;
   if (error) return <div style={{ color: 'red' }}>{error}</div>;
 
-   // console.log(orientation.alpha)
-  if (orientation.alpha === 360){
-    orientation.alpha = 0
-  }
   return (
     <div>
       {/* <h2>Компас (DeviceOrientation)</h2> */}
@@ -85,14 +95,12 @@ const Compass = () => {
       {/* Визуальный индикатор азимута */}
 
         <img style={{
-          
-          //backgroundColor: "red",
             zIndex: '9',
             position: 'absolute',
             top: '50%',
             left: '50%',
             transition: 'transform 0.5s',
-            transform: `translate(-50%, -50%) rotate(${orientation.alpha || 0}deg)`,
+            transform: `translate(-50%, -50%) rotate(${orientation.alpha}deg)`,
             width: '60px',
             //height: '4px',
             //backgroundColor: 'red',

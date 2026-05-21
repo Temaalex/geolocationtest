@@ -17,15 +17,6 @@ const Compass = () => {
         beta: 0, //event.beta,
         gamma: 0, //event.gamma
       });
-      if(orientation.alpha === 360){
-          orientation.alpha = 0
-          console.log(orientation.alpha)
-          setOrientation({
-            alpha: event.alpha,
-            beta: 0,
-            gamma: 0,
-          })
-      }
     };
     
     // if(orientation.alpha === 360){
@@ -100,7 +91,7 @@ const Compass = () => {
             top: '50%',
             left: '50%',
             transition: 'transform 0.5s',
-            transform: `translate(-50%, -50%) rotate(${orientation.alpha}deg)`,
+            transform: `translate(-50%, -50%) rotate(${orientation.alpha || 360 || 0}deg)`,
             width: '60px',
             //height: '4px',
             //backgroundColor: 'red',

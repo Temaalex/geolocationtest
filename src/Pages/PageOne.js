@@ -43,7 +43,7 @@ const pointFinish2 = {
     left: '50%',
     width: '50px',
     height: '50px',
-    backgroundColor: "yellow",
+    backgroundColor: "red",
     borderRadius: '50%',
     transform: 'translate(-50%, -50%)'
 }
@@ -153,7 +153,7 @@ const PageOne = () => {
         <div style={{border: '1px solid rgba(56, 11, 236, 1)'}} className='circle'/>
       </div>
       <div ref={ref1} style={pointFinish2}>
-        <div style={{border: '1px solid rgba(216, 236, 35, 1)'}} className='circle'/>
+        <div style={{border: '1px solid rgb(236, 35, 35)'}} className='circle'/>
         </div>
       <div ref={ref2} style={pointFinish3}>
         <div style={{border: '1px solid rgba(52, 220, 14, 1)'}} className='circle'/>

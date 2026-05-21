@@ -134,3 +134,4 @@ N
 </div>
 );
 };
+export default Compass;

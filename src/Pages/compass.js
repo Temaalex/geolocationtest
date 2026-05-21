@@ -17,6 +17,16 @@ const Compass = () => {
         beta: 0, //event.beta,
         gamma: 0, //event.gamma
       });
+      function normalizeAngle(angle) {
+        return (angle % 360 + 360) % 360;
+      }
+      window.addEventListener('deviceorientation', function(event) {
+          const alpha = normalizeAngle(event.alpha);
+          // Теперь alpha всегда в диапазоне [0, 360)
+          //applyRotation(alpha);
+          //console.log (alpha)
+          // Ваша функция применения вращения
+      });
     };
     
     // if(orientation.alpha === 360){

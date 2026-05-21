@@ -150,16 +150,16 @@ const PageOne = () => {
     <div style={container}>
       <Compass/>
       <div ref={ref0} style={pointFinish1}>
-        <div style={{border: '1px solid rgba(56, 11, 236, 0.3)'}} className='circle'/>
+        <div style={{border: '1px solid rgba(56, 11, 236, 1)'}} className='circle'/>
       </div>
       <div ref={ref1} style={pointFinish2}>
-        <div style={{border: '1px solid rgba(216, 236, 35, 0.3)'}} className='circle'/>
+        <div style={{border: '1px solid rgba(216, 236, 35, 1)'}} className='circle'/>
         </div>
       <div ref={ref2} style={pointFinish3}>
-        <div style={{border: '1px solid rgba(52, 220, 14, 0.3)'}} className='circle'/>
+        <div style={{border: '1px solid rgba(52, 220, 14, 1)'}} className='circle'/>
         </div>
       <div ref={ref3} style={pointFinish4}>
-        <div style={{border: '1px solid rgba(184, 179, 205, 0.3)'}} className='circle'/>
+        <div style={{border: '1px solid rgba(184, 179, 205, 1)'}} className='circle'/>
       </div>
       
     </div>   

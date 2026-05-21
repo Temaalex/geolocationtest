@@ -4,8 +4,8 @@ import Board from './img/Bord.jpg';
 const Compass = () => {
   const [orientation, setOrientation] = useState({
     alpha: null, // вращение вокруг оси Z (азимут)
-    //beta: null,  // наклон вперёд/назад (ось X)
-    //gamma: null   // наклон влево/вправо (ось Y)
+    beta: null,  // наклон вперёд/назад (ось X)
+    gamma: null   // наклон влево/вправо (ось Y)
   });
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
@@ -13,9 +13,9 @@ const Compass = () => {
   useEffect(() => {
     const handleOrientation = (event) => {
       setOrientation({
-        alpha: event.alpha,
-        //beta: 0,//event.beta,
-        //gamma: 0,//event.gamma
+        alpha: -event.alpha,
+        beta: 0, //event.beta,
+        gamma: 0, //event.gamma
       });
     };
 
@@ -37,7 +37,7 @@ const Compass = () => {
         // Для устройств без запроса разрешений
         window.addEventListener('deviceorientation', handleOrientation);
         setIsLoading(false);
-
+        
       // }
     // } else {
     //   setError('DeviceOrientationEvent не поддерживается вашим устройством');
@@ -53,6 +53,8 @@ const Compass = () => {
   if (isLoading) return <div>Загрузка датчиков...</div>;
   if (error) return <div style={{ color: 'red' }}>{error}</div>;
 
+   // console.log(orientation.alpha)
+
   return (
     <div>
       {/* <h2>Компас (DeviceOrientation)</h2> */}
@@ -64,7 +66,7 @@ const Compass = () => {
             ? `${orientation.alpha.toFixed()}°`
             : '—'}
         </p>
-        {/* <p>
+        <p>
           <strong>Наклон вперёд/назад (Beta/X):</strong>{' '}
           {orientation.beta !== null
             ? `${orientation.beta.toFixed()}°`
@@ -75,7 +77,7 @@ const Compass = () => {
           {orientation.gamma !== null
             ? `${orientation.gamma.toFixed()}°`
             : '—'}
-        </p> */}
+        </p>
       </div>
 
       {/* Визуальный индикатор азимута */}
@@ -87,7 +89,8 @@ const Compass = () => {
             position: 'absolute',
             top: '50%',
             left: '50%',
-            transform: `rotate(${orientation.alpha || 0}deg)`,
+            transition: 'transform 0.5s',
+            transform: `translate(-50%, -50%) rotate(${orientation.alpha}deg)`,
             width: '60px',
             //height: '4px',
             //backgroundColor: 'red',

@@ -13,7 +13,7 @@ const Compass = () => {
   useEffect(() => {
     const handleOrientation = (event) => {
       setOrientation({
-        alpha: event.alpha,
+        alpha: 360,//event.alpha,
         beta: 0, //event.beta,
         gamma: 0, //event.gamma
       });
@@ -54,7 +54,9 @@ const Compass = () => {
   if (error) return <div style={{ color: 'red' }}>{error}</div>;
 
    // console.log(orientation.alpha)
-
+  if (orientation.alpha === 360){
+    orientation.alpha = 0
+  }
   return (
     <div>
       {/* <h2>Компас (DeviceOrientation)</h2> */}
@@ -79,7 +81,7 @@ const Compass = () => {
             : '—'}
         </p>
       </div>
-
+            
       {/* Визуальный индикатор азимута */}
 
         <img style={{

@@ -21,6 +21,9 @@ const Compass = () => {
       if(orientation.alpha == 359){
         orientation.alpha = 1
       }
+      if(orientation.alpha == 1){
+        orientation.alpha = 359
+      }
     };
 
        

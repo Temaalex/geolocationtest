@@ -9,31 +9,15 @@ const [orientation, setOrientation] = useState({
   });
 const [error, setError] = useState(null);
 const [isLoading, setIsLoading] = useState(true);
-const [totalRotation, setTotalRotation] = useState(0);
-const [lastAlpha, setLastAlpha] = useState(null);
 
 useEffect(() => {
-  const handleOrientation = (event) => {
-  const currentAlpha = event.alpha;
- if (lastAlpha === null) {
-        setLastAlpha(currentAlpha);
-        setOrientation({
-          alpha: currentAlpha,
-          beta: 0,
-          gamma: 0
-        });
-        return;
-      }
-      let delta = currentAlpha - lastAlpha;
-      if (delta > 180) delta -= 360;
-      if (delta < -180) delta += 360;
-      setTotalRotation(prev => prev + delta);
-      setLastAlpha(currentAlpha);
-      setOrientation({
-        alpha: currentAlpha,
-        beta: 0,
-        gamma: 0
-      });
+const handleOrientation = (event) => {
+
+setOrientation({
+    alpha: event.alpha,
+    beta: 0, //event.beta,
+    gamma: 0, //event.gamma
+  });
 };
 
 
@@ -70,7 +54,7 @@ setIsLoading(false);
 return () => {
     window.removeEventListener('deviceorientation', handleOrientation);
   };
-}, [lastAlpha]);
+}, []);
 
 // Визуализация данных
 if (isLoading) return <div>Загрузка датчиков...</div>;
@@ -108,13 +92,13 @@ return (
   position: 'absolute',
   top: '50%',
   left: '50%',
-  transition: 'transform 0.5s linear',
-  transform: `translate(-50%, -50%) rotate(${totalRotation}deg)`,
+  transition: 'transform 0.5s',
+  transform: `translate(-50%, -50%) rotate(${orientation.alpha || 0}deg)`,
   width: '60px',
   //height: '4px',
   //backgroundColor: 'red',
   transformOrigin: 'center'
-}} src={Board} alt="Compass"/>
+}} src={Board} alt="Persone"/>
 {/* <div
 style={{
 position: 'absolute',

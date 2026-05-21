@@ -96,7 +96,7 @@ const PageOne = () => {
       const arrEndPoints = {
         endAlfOne: [59.377577, 28.602025, ref0],
         endAlfTwo: [59.376502, 28.614975, ref1],
-        endAlfThree: [59.378849, 28.616992, ref2],
+        endAlfThree: [59.388303, 28.618216, ref2],
         endAlfFour: [59.383683, 28.614135, ref3],
       }
 

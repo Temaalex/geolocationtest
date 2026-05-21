@@ -49,28 +49,28 @@ const Compass = () => {
     };
 
     // Проверка поддержки DeviceOrientationEvent
-    if (window.DeviceOrientationEvent) {
-      // Запрос разрешения на iOS 13+
-      if (typeof DeviceOrientationEvent.requestPermission === 'function') {
-        DeviceOrientationEvent.requestPermission()
-          .then((permissionState) => {
-            if (permissionState === 'granted') {
-              window.addEventListener('deviceorientation', handleOrientation);
-              setIsLoading(false);
-            } else {
-              setError('Разрешение на доступ к датчикам отклонено');
-            }
-          })
-          .catch(() => setError('Ошибка запроса разрешения'));
-      } else {
+    // if (window.DeviceOrientationEvent) {
+    //   // Запрос разрешения на iOS 13+
+    //   if (typeof DeviceOrientationEvent.requestPermission === 'function') {
+    //     DeviceOrientationEvent.requestPermission()
+    //       .then((permissionState) => {
+    //         if (permissionState === 'granted') {
+    //           window.addEventListener('deviceorientation', handleOrientation);
+    //           setIsLoading(false);
+    //         } else {
+    //           setError('Разрешение на доступ к датчикам отклонено');
+    //         }
+    //       })
+    //       .catch(() => setError('Ошибка запроса разрешения'));
+    //   } else {
         // Для устройств без запроса разрешений
         window.addEventListener('deviceorientation', handleOrientation);
         setIsLoading(false);
-      }
-    } else {
-      setError('DeviceOrientationEvent не поддерживается вашим устройством');
-      setIsLoading(false);
-    }
+    //   }
+    // } else {
+    //   setError('DeviceOrientationEvent не поддерживается вашим устройством');
+    //   setIsLoading(false);
+    // }
 
     return () => {
       window.removeEventListener('deviceorientation', handleOrientation);

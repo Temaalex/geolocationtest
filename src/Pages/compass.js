@@ -14,8 +14,8 @@ const Compass = () => {
     const handleOrientation = (event) => {
       setOrientation({
         alpha: event.alpha,
-        beta: event.beta,
-        gamma: event.gamma
+        beta: 0,//event.beta,
+        gamma: 0,//event.gamma
       });
     };
 

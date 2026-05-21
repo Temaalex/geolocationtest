@@ -13,7 +13,7 @@ const Compass = () => {
   useEffect(() => {
     const handleOrientation = (event) => {
       setOrientation({
-        alpha: -event.alpha,
+        alpha: event.alpha,
         beta: 0, //event.beta,
         gamma: 0, //event.gamma
       });
@@ -90,7 +90,7 @@ const Compass = () => {
             top: '50%',
             left: '50%',
             transition: 'transform 0.5s',
-            transform: `translate(-50%, -50%) rotate(${orientation.alpha}deg)`,
+            transform: `translate(-50%, -50%) rotate(${orientation.alpha || 0}deg)`,
             width: '60px',
             //height: '4px',
             //backgroundColor: 'red',

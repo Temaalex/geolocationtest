@@ -79,7 +79,7 @@ const PageOne = () => {
   const geoOptoins = {
     enableHighAccuracy: true,//true точность выше
     maximumAge: 0,
-    timeout: 500,
+    timeout: 0,
   }
   useEffect(() => {
     const getLocation = () => {

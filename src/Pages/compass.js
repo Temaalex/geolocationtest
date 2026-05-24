@@ -7,24 +7,37 @@ const [orientation, setOrientation] = useState({
   beta: null, // наклон вперёд/назад (ось X)
   gamma: null // наклон влево/вправо (ось Y)
   });
+const [accumulatedAlpha, setAccumulatedAlpha] = useState(0);
 const [error, setError] = useState(null);
 const [isLoading, setIsLoading] = useState(true);
 
 useEffect(() => {
+let previousAlpha = null;
 const handleOrientation = (event) => {
-
+const currentAlpha = event.alpha;
+if (previousAlpha !== null) {
+  let delta = currentAlpha - previousAlpha;
+  if (delta > 180) delta -= 360;
+  if (delta < -180) delta += 360;
+  setAccumulatedAlpha(prev => prev + delta);
+}
+previousAlpha = currentAlpha;
 setOrientation({
-    alpha: event.alpha,
+    alpha: currentAlpha,
     beta: 0, //event.beta,
     gamma: 0, //event.gamma
   });
 };
+//setOrientation(prev => prev + 1)
 
 
-// if(orientation.alpha === 360){
-// setOrientation({alpha: 0})
+// if(orientation.alpha >= 360){
+//   orientation.alpha=0
+// //setOrientation({alpha: 0})
 // console.log (orientation.alpha)
 // }
+
+//element.style.transform = `rotate(${angle}deg)`;
 
 // Проверка поддержки DeviceOrientationEvent
 // if (window.DeviceOrientationEvent) {
@@ -93,7 +106,7 @@ return (
   top: '50%',
   left: '50%',
   transition: 'transform 0.5s',
-  transform: `translate(-50%, -50%) rotate(${orientation.alpha || 0}deg)`,
+  transform: `translate(-50%, -50%) rotate(${accumulatedAlpha}deg)`,
   width: '60px',
   //height: '4px',
   //backgroundColor: 'red',

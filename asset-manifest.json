@@ -1,14 +1,14 @@
 {
   "files": {
     "main.css": "/geolocationtest/static/css/main.7211662a.css",
-    "main.js": "/geolocationtest/static/js/main.e880c06d.js",
+    "main.js": "/geolocationtest/static/js/main.3e25b7b8.js",
     "static/media/Bord.jpg": "/geolocationtest/static/media/Bord.5404e5c9f4b81656e532.jpg",
     "index.html": "/geolocationtest/index.html",
     "main.7211662a.css.map": "/geolocationtest/static/css/main.7211662a.css.map",
-    "main.e880c06d.js.map": "/geolocationtest/static/js/main.e880c06d.js.map"
+    "main.3e25b7b8.js.map": "/geolocationtest/static/js/main.3e25b7b8.js.map"
   },
   "entrypoints": [
     "static/css/main.7211662a.css",
-    "static/js/main.e880c06d.js"
+    "static/js/main.3e25b7b8.js"
   ]
 }

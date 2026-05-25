@@ -1,4 +1,4 @@
-import { useRef, useState, useEffect } from 'react';
+import { useCallback, useRef, useState, useEffect } from 'react';
 import Compass from './compass';
 
 //Карта
@@ -68,10 +68,17 @@ const PageOne = () => {
   const ref1 = useRef();
   const ref2 = useRef();
   const ref3 = useRef();
-
+  
   const [showMessage, setShowMessage] = useState(false);
   const [location, setLocation] = useState({ latitude: 0, longitude: 0 });
-
+  function usePrevious(value) {
+      const ref5 = useRef();
+      useEffect(() => {
+        ref5.current = value;
+      });
+      return ref5.current;
+    }
+  const prevState = usePrevious(location.latitude);
   const [alf, setAlf] = useState(null);
   const [bet, setBet] = useState(null);
 
@@ -119,15 +126,10 @@ const PageOne = () => {
         const endPointAlf = ((myAlf - endAlf) / QstepA) / multy;
         const endPointBet = ((myBet - endBet) / QstepB) / multy;
 
-          refPoint.current.style.marginTop = Math.trunc(endPointAlf) + 'px';
-          refPoint.current.style.marginLeft = Math.trunc(endPointBet) + 'px';
+        refPoint.current.style.marginTop = Math.trunc(endPointAlf) + 'px';
+        refPoint.current.style.marginLeft = Math.trunc(endPointBet) + 'px';
           
-          setAlf(Math.trunc(endPointAlf))
-      
-          
-          
-           
-
+        setAlf(Math.trunc(endPointAlf))
         if(
             0 >= Math.trunc(endPointAlf)-20 &&
             0 <= Math.trunc(endPointAlf)+20 &&
@@ -140,17 +142,20 @@ const PageOne = () => {
       }
     };
 
-
+  
+    
     const interval = setInterval(() => {
-      getLocation();
+    getLocation();
+    if (prevState !== location.latitude) {
       formula(arrEndPoints.endAlfOne[0], arrEndPoints.endAlfOne[1], arrEndPoints.endAlfOne[2])
       formula(arrEndPoints.endAlfTwo[0], arrEndPoints.endAlfTwo[1], arrEndPoints.endAlfTwo[2])
       formula(arrEndPoints.endAlfThree[0], arrEndPoints.endAlfThree[1], arrEndPoints.endAlfThree[2])
       formula(arrEndPoints.endAlfFour[0], arrEndPoints.endAlfFour[1], arrEndPoints.endAlfFour[2])
+    }
     }, 0);
 
     return () => clearInterval(interval);
-  }, [location]); // Зависимость от location
+  }, [location]); 
 
   return (
     <div>
@@ -161,17 +166,7 @@ const PageOne = () => {
         <button onClick={() => setLocation({ ...location })}>Нажми</button>
       </div>
 
-      {/* <svg style={dashedLine}>
-          <line
-            x1="50%"
-            y1="50%"
-            x2={window.innerWidth / 2 + bet}
-            y2={window.innerHeight / 2 + alf}
-            stroke="red"
-            strokeWidth="3"
-            stroke-dasharray="40, 10"
-          />
-      </svg> */}
+
 
       <div style={container}>
         <Compass />

@@ -4,31 +4,15 @@ import Compass from './compass';
 //Карта
 
 const container = {
-  //position: 'relative',
-   //display: 'flex',
-    //justifyContent: 'center',
-    //alignContent: 'center',
-    //placeContent: 'center',
     overflow: 'hidden',
-    //gridTemplateColumns: 'repeat(100, 1px)',
-    //gridTemplateRows: 'repeat(100, 1px)',
-    //gridAutoColumns: '1px',
-    //gridAutoRows: '1px',
-    //margin:'10px',
-    //minWidth: '500px',
-    //minHeight: '500px',
-    //backgroundColor: "black",
     position: 'absolute',
     width: '100vw',
     height: '100vh',
     top: '0',
     left: '0',
-    //border: '1px solid red',  
 }
 
 const dashedLine = {
-  //borderTop: '2px dashed #d90d0d',
-  //width: '100%'
   overflow: 'hidden',
   position: 'absolute',
     width: '100vw',
@@ -88,12 +72,8 @@ const PageOne = () => {
   const [showMessage, setShowMessage] = useState(false);
   const [location, setLocation] = useState({ latitude: 0, longitude: 0 });
 
-  const [pointsData, setPointsData] = useState([
-    { bet: 0, alf: 0 },
-    { bet: 0, alf: 0 },
-    { bet: 0, alf: 0 },
-    { bet: 0, alf: 0 } 
-  ]);
+  const [alf, setAlf] = useState(null);
+  const [bet, setBet] = useState(null);
 
   const geoOptoins = {
     enableHighAccuracy: false,
@@ -119,16 +99,14 @@ const PageOne = () => {
       }
     };
 
-    const arrEndPoints = [
-      [59.377577, 28.602025, ref0], 
-      [59.376502, 28.614975, ref1], 
-      [59.388303, 28.618216, ref2], 
-      [59.383683, 28.614135, ref3]  
-    ];
+    const arrEndPoints = {
+      endAlfOne: [59.377577, 28.602025, ref0],
+      endAlfTwo: [59.376502, 28.614975, ref1],
+      endAlfThree: [59.388303, 28.618216, ref2],
+      endAlfFour: [59.383683, 28.614135, ref3],
+      }
 
-    // Обновляем данные для всех точек
-    const updateAllPoints = () => {
-      const newPointsData = arrEndPoints.map(([endAlf, endBet, refPoint], index) => {
+    const formula  = (endAlf, endBet, refPoint) => {
         const myAlf = location.latitude;
         const myBet = location.longitude;
         const R = 6371302;
@@ -141,40 +119,37 @@ const PageOne = () => {
         const endPointAlf = ((myAlf - endAlf) / QstepA) / multy;
         const endPointBet = ((myBet - endBet) / QstepB) / multy;
 
-        // Обновляем стили точки
-        if (refPoint.current) {
           refPoint.current.style.marginTop = Math.trunc(endPointAlf) + 'px';
           refPoint.current.style.marginLeft = Math.trunc(endPointBet) + 'px';
-        }
+          
+          setAlf(Math.trunc(endPointAlf))
+      
+          
+          
+           
 
-        return {
-          bet: Math.trunc(endPointBet),
-          alf: Math.trunc(endPointAlf)
-        };
-      });
-
-      setPointsData(newPointsData);
-
-      // Проверка «на месте» для всех точек
-      const isAnyPointClose = newPointsData.some(({ bet, alf }) =>
-        Math.abs(bet) <= 20 && Math.abs(alf) <= 20
-      );
-      if (isAnyPointClose) {
-        setShowMessage("На месте");
-      } else {
-        setShowMessage("");
+        if(
+            0 >= Math.trunc(endPointAlf)-20 &&
+            0 <= Math.trunc(endPointAlf)+20 &&
+            0 >= Math.trunc(endPointBet)-20 &&
+            0 <= Math.trunc(endPointBet)+20
+        ) {
+            setShowMessage("На месте")
+        } else {
+            setShowMessage("");
       }
     };
 
-    getLocation();
-    updateAllPoints();
 
-    // const interval = setInterval(() => {
-    //   getLocation();
-    //   updateAllPoints();
-    // }, 0);
+    const interval = setInterval(() => {
+      getLocation();
+      formula(arrEndPoints.endAlfOne[0], arrEndPoints.endAlfOne[1], arrEndPoints.endAlfOne[2])
+      formula(arrEndPoints.endAlfTwo[0], arrEndPoints.endAlfTwo[1], arrEndPoints.endAlfTwo[2])
+      formula(arrEndPoints.endAlfThree[0], arrEndPoints.endAlfThree[1], arrEndPoints.endAlfThree[2])
+      formula(arrEndPoints.endAlfFour[0], arrEndPoints.endAlfFour[1], arrEndPoints.endAlfFour[2])
+    }, 0);
 
-    // return () => clearInterval(interval);
+    return () => clearInterval(interval);
   }, [location]); // Зависимость от location
 
   return (
@@ -186,11 +161,8 @@ const PageOne = () => {
         <button onClick={() => setLocation({ ...location })}>Нажми</button>
       </div>
 
-      {/* SVG с 4 линиями — по одной для каждой точки */}
-      <svg style={dashedLine}>
-        {pointsData.map(({ bet, alf }, index) => (
+      {/* <svg style={dashedLine}>
           <line
-            key={index}
             x1="50%"
             y1="50%"
             x2={window.innerWidth / 2 + bet}
@@ -199,8 +171,7 @@ const PageOne = () => {
             strokeWidth="3"
             stroke-dasharray="40, 10"
           />
-        ))}
-      </svg>
+      </svg> */}
 
       <div style={container}>
         <Compass />

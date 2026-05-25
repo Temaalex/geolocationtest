@@ -3,13 +3,37 @@ import Board from './img/Bord.jpg';
 
 const Compass = () => {
 const [orientation, setOrientation] = useState({
-  alpha: null, // вращение вокруг оси Z (азимут)
-  beta: null, // наклон вперёд/назад (ось X)
-  gamma: null // наклон влево/вправо (ось Y)
+  alpha: null,
+  beta: null,
+  gamma: null 
   });
 const [accumulatedAlpha, setAccumulatedAlpha] = useState(0);
+const [permissionGranted, setPermissionGranted] = useState(false);
 const [error, setError] = useState(null);
 const [isLoading, setIsLoading] = useState(true);
+
+const requestPermission = async () => {
+    if (typeof DeviceMotionEvent?.requestPermission === 'function') {
+      // Для iOS 13+
+      try {
+        const permission = await DeviceMotionEvent.requestPermission();
+        if (permission === 'granted') {
+          setPermissionGranted(true);
+        } else {
+          setError('Доступ к сенсорам отклонён');
+        }
+      } catch (err) {
+        setError('Ошибка при запросе разрешения: ' + err.message);
+      }
+    } else {
+      // Для других платформ или старых версий iOS
+      setPermissionGranted(true);
+    }
+  };
+  useEffect(() => {
+    // Запрашиваем разрешение при монтировании компонента
+    requestPermission();
+  }, [permissionGranted]);
 
 useEffect(() => {
 let previousAlpha = null;
@@ -28,41 +52,9 @@ setOrientation({
     gamma: 0, //event.gamma
   });
 };
-//setOrientation(prev => prev + 1)
 
-
-// if(orientation.alpha >= 360){
-//   orientation.alpha=0
-// //setOrientation({alpha: 0})
-// console.log (orientation.alpha)
-// }
-
-//element.style.transform = `rotate(${angle}deg)`;
-
-// Проверка поддержки DeviceOrientationEvent
-// if (window.DeviceOrientationEvent) {
-// // Запрос разрешения на iOS 13+
-// if (typeof DeviceOrientationEvent.requestPermission === 'function') {
-// DeviceOrientationEvent.requestPermission()
-// .then((permissionState) => {
-// if (permissionState === 'granted') {
-// window.addEventListener('deviceorientation', handleOrientation);
-// setIsLoading(false);
-// } else {
-// setError('Разрешение на доступ к датчикам отклонено');
-// }
-// })
-// .catch(() => setError('Ошибка запроса разрешения'));
-// } else {
-// Для устройств без запроса разрешений
 window.addEventListener('deviceorientation', handleOrientation);
 setIsLoading(false);
-
-// }
-// } else {
-// setError('DeviceOrientationEvent не поддерживается вашим устройством');
-// setIsLoading(false);
-// }
 
 return () => {
     window.removeEventListener('deviceorientation', handleOrientation);
@@ -75,8 +67,6 @@ if (error) return <div style={{ color: 'red' }}>{error}</div>;
 
 return (
 <div>
-{/* <h2>Компас (DeviceOrientation)</h2> */}
-
 <div style={{ margin: '10px 0', color: "green", marginTop: "100px"}}>
   <p>
     <strong>Азимут (Alpha/Z):</strong>{' '}
@@ -108,26 +98,8 @@ return (
   transition: 'transform 0.5s',
   transform: `translate(-50%, -50%) rotate(${accumulatedAlpha}deg)`,
   width: '60px',
-  //height: '4px',
-  //backgroundColor: 'red',
   transformOrigin: 'center'
 }} src={Board} alt="Persone"/>
-{/* <div
-style={{
-position: 'absolute',
-top: '50%',
-left: '50%',
-transform: `translate(-50%, -50%) rotate(${orientation.alpha || 0}deg)`,
-width: '50%',
-height: '4px',
-backgroundColor: 'red',
-transformOrigin: 'center'
-}}
-/> */}
-{/* <div style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)' }}>
-N
-</div> */}
-
 </div>
 );
 };

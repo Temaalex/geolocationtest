@@ -96,9 +96,9 @@ const PageOne = () => {
   ]);
 
   const geoOptoins = {
-    enableHighAccuracy: true,
+    enableHighAccuracy: false,
     maximumAge: 0,
-    timeout: 100,
+    timeout: 500,
   };
 
   useEffect(() => {
@@ -166,13 +166,13 @@ const PageOne = () => {
       }
     };
 
-    getLocation();
-    updateAllPoints();
+    // getLocation();
+    // updateAllPoints();
 
     const interval = setInterval(() => {
       getLocation();
       updateAllPoints();
-    }, 500);
+    }, 0);
 
     return () => clearInterval(interval);
   }, [location]); // Зависимость от location

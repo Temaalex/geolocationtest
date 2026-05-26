@@ -79,8 +79,6 @@ const PageOne = () => {
       return ref5.current;
     }
   const prevState = usePrevious(location.latitude);
-  const [alf, setAlf] = useState(null);
-  const [bet, setBet] = useState(null);
 
   const geoOptoins = {
     enableHighAccuracy: false,
@@ -107,10 +105,10 @@ const PageOne = () => {
     };
 
     const arrEndPoints = {
-      endAlfOne: [59.377577, 28.602025, ref0],
-      endAlfTwo: [59.376502, 28.614975, ref1],
-      endAlfThree: [59.388303, 28.618216, ref2],
-      endAlfFour: [59.383683, 28.614135, ref3],
+      endAlfOne: [59.433462, 28.389887, ref0],
+      endAlfTwo: [59.433301, 28.390148, ref1],
+      endAlfThree: [59.433584, 28.389739, ref2],
+      endAlfFour: [59.433390, 28.390755, ref3],
       }
 
     const formula  = (endAlf, endBet, refPoint) => {
@@ -128,15 +126,16 @@ const PageOne = () => {
 
         refPoint.current.style.marginTop = Math.trunc(endPointAlf) + 'px';
         refPoint.current.style.marginLeft = Math.trunc(endPointBet) + 'px';
-          
-        setAlf(Math.trunc(endPointAlf))
+        
+        //console.log(pointFinish2.backgroundColor)
+
         if(
             0 >= Math.trunc(endPointAlf)-20 &&
             0 <= Math.trunc(endPointAlf)+20 &&
             0 >= Math.trunc(endPointBet)-20 &&
             0 <= Math.trunc(endPointBet)+20
-        ) {
-            setShowMessage("На месте")
+        ) { 
+          setShowMessage("На месте 2")          
         } else {
             setShowMessage("");
       }

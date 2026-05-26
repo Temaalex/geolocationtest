@@ -55,8 +55,8 @@ const Compass = () => {
 
       setOrientation({
         alpha: currentAlpha,
-        beta: event.beta !== null ? event.beta : 0,
-        gamma: event.gamma !== null ? event.gamma : 0
+        beta: 0,//event.beta !== null ? event.beta : 0,
+        gamma: 0, //event.gamma !== null ? event.gamma : 0
       });
     };
 

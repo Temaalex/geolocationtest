@@ -152,7 +152,7 @@ const PageOne = () => {
       formula(arrEndPoints.endAlfThree[0], arrEndPoints.endAlfThree[1], arrEndPoints.endAlfThree[2])
       formula(arrEndPoints.endAlfFour[0], arrEndPoints.endAlfFour[1], arrEndPoints.endAlfFour[2])
     }
-    }, 0);
+    }, 2000);
 
     return () => clearInterval(interval);
   }, [location]); 

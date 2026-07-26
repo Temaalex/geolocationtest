@@ -1,5 +1,6 @@
 import { useCallback, useRef, useState, useEffect } from 'react';
 import Compass from './compass';
+import { useNavigate } from "react-router-dom"
 
 //Карта
 
@@ -70,6 +71,7 @@ const PageOne = () => {
   const ref2 = useRef();
   const ref3 = useRef();
   const containerRef = useRef(null);
+  let navigate = useNavigate();
   
   const [showMessage, setShowMessage] = useState(false);
   const [location, setLocation] = useState({ latitude: 0, longitude: 0 });
@@ -80,10 +82,11 @@ const PageOne = () => {
     timeout: 1000,
   };
     const arrEndPoints = {
-      endAlfOne: [59.388324, 28.618235, ref0],
-      endAlfTwo: [59.387181, 28.613948, ref1],
-      endAlfThree: [59.385822, 28.617439, ref2],
-      endAlfFour: [59.387471, 28.617116, ref3],
+      endAlfOne: [59.830492, 30.244167, ref0],
+      //endAlfTwo: [59.831223, 30.246503, ref1],
+      endAlfTwo: [59.830740, 30.246296, ref1],
+      endAlfThree: [59.832186, 30.224125, ref2],
+      endAlfFour: [59.831887, 30.249914, ref3],
       }
 
   const zoomIn = () => {
@@ -102,25 +105,44 @@ const formula  = (endAlf, endBet, refPoint) => {
         const QstepB = 360 / L1;
         const QstepA = 360 / (2 * Math.PI * R);
         
-        let multy = 1; 
-        const endPointAlf = ((myAlf - endAlf) / QstepA) / multy;
-        const endPointBet = ((myBet - endBet) / QstepB) / multy;
+        let multy = 2; 
+        const endPointAlf = ((myAlf.toFixed(6) - endAlf) / QstepA) / multy;
+        const endPointBet = ((myBet.toFixed(6) - endBet) / QstepB) / multy;
 
         refPoint.current.style.marginTop = Math.trunc(endPointAlf) + 'px';
         refPoint.current.style.marginLeft = Math.trunc(endPointBet) + 'px';
+
+        if(Number(myAlf.toFixed(4)) == Number(arrEndPoints.endAlfOne[0].toFixed(4))){
+          console.log("Мы на месте 1")
+          setShowMessage("Мы на месте 1");
+          navigate('/GallowsGame') 
+        }
+        if(Number(myAlf.toFixed(4)) == Number(arrEndPoints.endAlfTwo[0].toFixed(4))){
+          console.log("Мы на месте 2")
+          setShowMessage("Мы на месте 2");
+        }
+        if(Number(myAlf.toFixed(4)) == Number(arrEndPoints.endAlfThree[0].toFixed(4))){
+          console.log("Мы на месте 3")
+          setShowMessage("Мы на месте 3");
+        }
+        if(Number(myAlf.toFixed(4)) == Number(arrEndPoints.endAlfFour[0].toFixed(4))){
+          console.log("Мы на месте 4")
+          setShowMessage("Мы на месте 4");
+        }
         
-        //console.log(pointFinish2.backgroundColor)
-        
-        if(
-            0 >= Math.trunc(endPointAlf)-20 &&
-            0 <= Math.trunc(endPointAlf)+20 &&
-            0 >= Math.trunc(endPointBet)-20 &&
-            0 <= Math.trunc(endPointBet)+20
-        ) { 
-          setShowMessage("На месте 2")          
-        } else {
-          setShowMessage("");
-      }
+      //   if(
+      //       0 >= Math.trunc(endPointAlf)-20 &&
+      //       0 <= Math.trunc(endPointAlf)+20 &&
+      //       0 >= Math.trunc(endPointBet)-20 &&
+      //       0 <= Math.trunc(endPointBet)+20
+      //   ) { 
+      //      console.log("На месте 1")
+
+      //     //setShowMessage("На месте 2") 
+      //     //navigate('/GallowsGame')         
+      //   } else {
+      //     setShowMessage("");
+      // }
     };
 
   useEffect(() => {

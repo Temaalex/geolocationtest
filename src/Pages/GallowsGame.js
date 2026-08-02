@@ -3,6 +3,17 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import GallowsGamePage from './img/GallowsGame.png';
 import BD from './bd.json';
 
+
+
+const mainWrapperStyle = {
+ margin: "20px",
+ border: '2px solid #ffffff',
+ backgroundColor: '#000000',
+ borderRadius: '15px',
+ overflow:"hidden",
+ position: "absolute",
+ zIndex: "9999"
+}
 const styleText = {
   color: '#ffffff',
   fontFamily: "'Roboto Mono', monospace",
@@ -72,10 +83,19 @@ const hintStyle = {
   color: '#cccccc',
   marginBottom: '10px',
 };
+const styleClose = {
+  height:"45px",
+  float: "right",
+  border: '2px solid #020202',
+  borderRadius: '5px',
+  cursor: "pointer",
+  overflow: "hidden",
+  
+}
 
 const alphabet = 'АБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ'.split('');
 
-const GallowsGame = () => {
+const GallowsGame = ({onGameEnd}) => {
   const location = useLocation();
   const navigate = useNavigate();
 
@@ -108,12 +128,15 @@ const GallowsGame = () => {
           setGameStatus('Энергия:');
         } else {
           setGameStatus('Все слова пройдены!');
+          if (onGameEnd) {
+            onGameEnd();
+          }
           //вернуться в космос 
-          navigate('/one')
+          //navigate('/one')
         }
       }, 2000);
     }
-  }, [visible, count]);
+  }, [visible, count, onGameEnd, navigate]);
 
   useEffect(() => {
     if (energy <= 0) {
@@ -139,19 +162,8 @@ const GallowsGame = () => {
     }
   }
 
-  // if (count >= BD.gallowGame.length) {
-  //   
-  //   return (
-  //     <div style={styleText}>
-  //       Все слова пройдены! Спасибо за игру!
-  //     </div>
-  //   );
-  // }
-
-
-
   return (
-    <div>
+    <div style={mainWrapperStyle}>
       {/* <img style={GallowsGamePageStyle} src={GallowsGamePage} alt="Gallows Game" /> */}
       <div style={hintStyle}>
         Подсказка: {hint}
@@ -163,6 +175,7 @@ const GallowsGame = () => {
           </div>
         ))}
       </div>
+      
       <div style={wrapperStyle}>
         <p style={styleText}>{gameStatus}</p>
         <div style={energyStyle}>

@@ -84,8 +84,8 @@ const PageOne = () => {
   };
     const arrEndPoints = {
       endAlfOne: [59.832137, 30.251200, ref0],
-      //endAlfTwo: [59.831223, 30.246503, ref1],
-      endAlfTwo: [59.830740, 30.246296, ref1],
+      endAlfTwo: [59.831211, 30.246990, ref1],
+      //endAlfTwo: [59.831596, 30.235825, ref1],
       endAlfThree: [59.832186, 30.224125, ref2],
       endAlfFour: [59.831887, 30.249914, ref3],
       }
@@ -112,33 +112,83 @@ const formula  = (endAlf, endBet, refPoint) => {
 
         refPoint.current.style.marginTop = Math.trunc(endPointAlf) + 'px';
         refPoint.current.style.marginLeft = Math.trunc(endPointBet) + 'px';
-
-        if(Number(myAlf.toFixed(5)) == Number(arrEndPoints.endAlfOne[0].toFixed(5)) &&
-           Number(myBet.toFixed(5)) == Number(arrEndPoints.endAlfOne[1].toFixed(5))){
-           setShowMessage("Мы на месте 1");
-           //navigate('/GallowsGame') 
-           setShowGG(!showGG)
-
-        }
-        if(Number(myAlf.toFixed(5)) == Number(arrEndPoints.endAlfTwo[0].toFixed(5))&&
-           Number(myBet.toFixed(5)) == Number(arrEndPoints.endAlfTwo[1].toFixed(5))){
-           setShowMessage("Мы на месте 2");
-           //navigate('/GallowsGameTwo') 
-           setShowGG(!showGG)
-        }
-        if(Number(myAlf.toFixed(5)) == Number(arrEndPoints.endAlfThree[0].toFixed(5))&&
-           Number(myBet.toFixed(5)) == Number(arrEndPoints.endAlfThree[1].toFixed(5))){
-           setShowMessage("Мы на месте 3");
-          // navigate('/GallowsGameThree') 
-          setShowGG(!showGG)
-        }
-        if(Number(myAlf.toFixed(5)) == Number(arrEndPoints.endAlfFour[0].toFixed(5))&&
-           Number(myBet.toFixed(5)) == Number(arrEndPoints.endAlfThree[1].toFixed(5))){
-           setShowMessage("Мы на месте 4");
-           //navigate('/GallowsGameFore') 
-           setShowGG(!showGG)
-        }
+        const arrPointsForFaundAlf = []
+        arrPointsForFaundAlf.push(Math.trunc(((myAlf.toFixed(6)-arrEndPoints.endAlfOne[0])/QstepA)/ multy))
+        arrPointsForFaundAlf.push(Math.trunc(((myAlf.toFixed(6)-arrEndPoints.endAlfTwo[0])/QstepA)/ multy))
+        arrPointsForFaundAlf.push(Math.trunc(((myAlf.toFixed(6)-arrEndPoints.endAlfThree[0])/QstepA)/ multy))
+        arrPointsForFaundAlf.push(Math.trunc(((myAlf.toFixed(6)-arrEndPoints.endAlfFour[0])/QstepA)/ multy))
+        const arrPointsForFaundBetta = []
+        arrPointsForFaundBetta.push(Math.trunc(((myBet.toFixed(6)-arrEndPoints.endAlfOne[1])/QstepB)/ multy))
+        arrPointsForFaundBetta.push(Math.trunc(((myBet.toFixed(6)-arrEndPoints.endAlfTwo[1])/QstepB)/ multy))
+        arrPointsForFaundBetta.push(Math.trunc(((myBet.toFixed(6)-arrEndPoints.endAlfThree[1])/QstepB)/ multy))
+        arrPointsForFaundBetta.push(Math.trunc(((myBet.toFixed(6)-arrEndPoints.endAlfFour[1])/QstepB)/ multy))
         
+         if(
+              0 >= arrPointsForFaundAlf[0]-10 &&
+              0 <= arrPointsForFaundAlf[0]+10 &&
+              0 >= arrPointsForFaundBetta[0]-10 &&
+              0 <= arrPointsForFaundBetta[0]+10
+          ) { 
+            //setShowGG(!showGG)
+            navigate('/GallowsGame')
+            setShowMessage("На месте 1")          
+          } else if (
+              0 >= arrPointsForFaundAlf[1]-10 &&
+              0 <= arrPointsForFaundAlf[1]+10 &&
+              0 >= arrPointsForFaundBetta[1]-10 &&
+              0 <= arrPointsForFaundBetta[1]+10
+            ){
+            //setShowGG(!showGG)
+            navigate('/GallowsGame')
+            setShowMessage("На месте 2")
+          } else if (
+              0 >= arrPointsForFaundAlf[2]-10 &&
+              0 <= arrPointsForFaundAlf[2]+10 &&
+              0 >= arrPointsForFaundBetta[2]-10 &&
+              0 <= arrPointsForFaundBetta[2]+10
+          ){
+            //setShowGG(!showGG)
+            navigate('/GallowsGame')
+            setShowMessage("На месте 3") 
+          } else if (
+              0 >= arrPointsForFaundAlf[3]-10 &&
+              0 <= arrPointsForFaundAlf[3]+10 &&
+              0 >= arrPointsForFaundBetta[3]-10 &&
+              0 <= arrPointsForFaundBetta[3]+10            
+          ){
+            //setShowGG(!showGG)
+            navigate('/GallowsGame')
+            setShowMessage("На месте 4") 
+          }
+    
+
+
+        // if(Number(myAlf.toFixed(5)) == Number(arrEndPoints.endAlfOne[0].toFixed(5)) &&
+        //    Number(myBet.toFixed(5)) == Number(arrEndPoints.endAlfOne[1].toFixed(5))){
+        //    setShowMessage("Мы на месте 1");
+        //    //navigate('/GallowsGame') 
+        //    setShowGG(!showGG)
+
+        // }
+        // if(Number(myAlf.toFixed(5)) == Number(arrEndPoints.endAlfTwo[0].toFixed(5))&&
+        //    Number(myBet.toFixed(5)) == Number(arrEndPoints.endAlfTwo[1].toFixed(5))){
+        //    setShowMessage("Мы на месте 2");
+        //    //navigate('/GallowsGameTwo') 
+        //    setShowGG(!showGG)
+        // }
+        // if(Number(myAlf.toFixed(5)) == Number(arrEndPoints.endAlfThree[0].toFixed(5))&&
+        //    Number(myBet.toFixed(5)) == Number(arrEndPoints.endAlfThree[1].toFixed(5))){
+        //    setShowMessage("Мы на месте 3");
+        //   // navigate('/GallowsGameThree') 
+        //   setShowGG(!showGG)
+        // }
+        // if(Number(myAlf.toFixed(5)) == Number(arrEndPoints.endAlfFour[0].toFixed(5))&&
+        //    Number(myBet.toFixed(5)) == Number(arrEndPoints.endAlfFour[1].toFixed(5))){
+        //    setShowMessage("Мы на месте 4");
+        //    //navigate('/GallowsGameFore') 
+        //    setShowGG(!showGG)
+        // }
+      
       //   if(
       //       0 >= Math.trunc(endPointAlf)-20 &&
       //       0 <= Math.trunc(endPointAlf)+20 &&

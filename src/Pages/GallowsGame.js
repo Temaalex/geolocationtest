@@ -132,7 +132,7 @@ const GallowsGame = ({onGameEnd}) => {
             onGameEnd();
           }
           //вернуться в космос 
-          //navigate('/one')
+          navigate('/one')
         }
       }, 2000);
     }
